@@ -191,6 +191,16 @@ final class Question extends Model implements Viewable
     }
 
     /**
+     * @return HasMany<Question>
+     */
+    public function descendants(): HasMany
+    {
+        return $this->hasMany(self::class, 'root_id')
+            ->where('is_ignored', false)
+            ->where('is_reported', false);
+    }
+
+    /**
      * @return BelongsToMany<Hashtag>
      */
     public function hashtags(): BelongsToMany
